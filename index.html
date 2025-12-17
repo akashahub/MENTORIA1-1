@@ -86,7 +86,7 @@
 
         .btn-empire:hover::after { width: 100%; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (COM VÍDEO DE FUNDO) --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -94,16 +94,50 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: radial-gradient(circle at center, #111 0%, #000 80%);
             position: relative;
             border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+            overflow: hidden;
         }
 
-        .hero::before {
-            content: '👑';
-            font-size: 4rem;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.3));
+        /* VÍDEO DE FUNDO */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.4; /* Ajuste a opacidade se quiser */
+        }
+
+        /* Overlay escuro para melhorar legibilidade */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 80%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* LOGO NO TOPO */
+        .hero-logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.5));
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Conteúdo do hero acima do vídeo */
+        .hero .container {
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
@@ -190,6 +224,7 @@
 
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.8rem; }
+            .hero-logo { width: 100px; }
             .phase { flex-direction: column; text-align: center; gap: 10px; }
             .phase-num { font-size: 3rem; }
         }
@@ -199,7 +234,15 @@
 
     <!-- HERO -->
     <section class="hero">
+        <!-- VÍDEO DE FUNDO -->
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://res.cloudinary.com/dlueoyrhe/video/upload/v1765954196/generated_video_-_2025-12-17T034853.584_rixpox.mp4" type="video/mp4">
+        </video>
+
         <div class="container">
+            <!-- LOGO NO LUGAR DO EMOJI -->
+            <img src="https://res.cloudinary.com/dlueoyrhe/image/upload/v1765962348/Sem_nome_70_x_70_px_la5nyl.png">
+
             <h2>Mentoria High-Ticket</h2>
             <h1>O Império <br><span class="gold-text">Akáshico</span></h1>
             
@@ -209,8 +252,7 @@
             </p>
 
             <!-- BOTÃO TOPO ATUALIZADO -->
-            <a href=https://hubcomplier.github.io/formularioMENTORIA1-1/      
-                target="_blank" class="btn-empire">
+            <a href="https://hubcomplier.github.io/formularioMENTORIA1-1/" target="_blank" class="btn-empire">
                 Aplicar para a Mentoria
             </a>
         </div>
@@ -312,8 +354,7 @@
 
             <!-- BOTÃO FINAL ATUALIZADO -->
             <div style="text-align: center; margin-top: 80px;">
-                <a href="https://hubcomplier.github.io/formularioMENTORIA1-1/ 
-                    target="_blank" class="btn-empire">
+                <a href="https://hubcomplier.github.io/formularioMENTORIA1-1/" target="_blank" class="btn-empire">
                     Aplicar para uma Vaga
                 </a>
                 <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">Processo seletivo necessário.</p>
@@ -327,9 +368,4 @@
     </footer>
 
 </body>
-
-
-
-
-
-
+</html>
