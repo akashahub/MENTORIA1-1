@@ -1,372 +1,483 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentoria Imperial | Yan Simon</title>
+    <title>Mentoria Akáshica 1:1 | Arquitetura de Essência</title>
     
     <!-- Fontes de Luxo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* --- IMPERIAL CORE --- */
+        /* --- 1. CORE VARIABLES & RESET --- */
         :root {
-            --bg-void: #000000;
-            --bg-panel: #080808;
-            --gold-royal: #C5A059;
-            --gold-light: #EBD598;
-            --gold-grad: linear-gradient(180deg, #C5A059 0%, #8A6E2F 100%);
-            --platinum: #E5E4E2;
-            --text-muted: #666;
+            --bg-void: #050505; /* Preto absoluto */
+            --bg-glass: rgba(20, 20, 20, 0.6); /* Vidro escuro */
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            
+            /* Ouro Champanhe (Mais elegante que o amarelo) */
+            --gold-primary: #D4AF37; 
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 40%, #b38728 80%, #fbf5b7 100%);
+            
+            --text-main: #Eaeaea;
+            --text-muted: #888888;
+            
+            --spacing-section: 120px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--bg-void);
-            color: var(--platinum);
+            color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
-            line-height: 1.7;
+            font-weight: 300; /* Leveza premium */
+            line-height: 1.8;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* --- 2. TYPOGRAPHY --- */
         h1, h2, h3, h4 {
             font-family: 'Cinzel', serif;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 500;
+            font-weight: 400;
+            letter-spacing: 0.15em; /* Espaçamento de luxo */
         }
 
-        .gold-text {
-            background: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+        .text-gold {
+            background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .serif-italic {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            color: var(--gold-royal);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            color: var(--gold-primary);
+            line-height: 1.4;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 30px; }
+        /* --- 3. UTILITIES & ANIMATIONS --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
 
-        /* --- BUTTON: THE SEAL --- */
-        .btn-empire {
+        .fade-in-up {
+            animation: fadeInUp 1.2s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Separador elegante */
+        .divider {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--gold-primary), transparent);
+            margin: 0 auto 40px;
+        }
+
+        /* --- 4. COMPONENTS --- */
+        
+        /* Botão Premium */
+        .btn-gold {
             display: inline-block;
-            background: linear-gradient(to bottom, #1a1a1a, #000);
-            border: 1px solid var(--gold-royal);
-            color: var(--gold-royal);
-            padding: 25px 70px;
+            padding: 22px 55px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: linear-gradient(180deg, rgba(20,20,20,0.8), rgba(0,0,0,1));
+            color: var(--gold-primary);
             font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
             text-decoration: none;
-            letter-spacing: 2px;
-            transition: 0.5s;
+            text-transform: uppercase;
+            transition: all 0.5s ease;
             position: relative;
-            z-index: 1;
+            backdrop-filter: blur(5px);
         }
 
-        .btn-empire::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 0; height: 100%;
-            background: var(--gold-royal);
-            transition: 0.5s;
-            z-index: -1;
+        .btn-gold:hover {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            letter-spacing: 0.25em; /* Expande levemente */
         }
 
-        .btn-empire:hover {
-            color: #000;
-            box-shadow: 0 0 40px rgba(197, 160, 89, 0.4);
+        /* Cards de Vidro (Glassmorphism) */
+        .glass-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            padding: 40px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.4s ease, border-color 0.4s ease;
         }
 
-        .btn-empire:hover::after { width: 100%; }
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
 
-        /* --- HERO SECTION (COM VÍDEO DE FUNDO) --- */
+        /* --- 5. SECTIONS --- */
+
+        /* HERO */
         .hero {
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            justify-content: center;
             position: relative;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
             overflow: hidden;
+            text-align: center;
         }
 
-        /* VÍDEO DE FUNDO */
         .hero-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
+            opacity: 0.3; /* Mais sutil */
             z-index: 0;
-            opacity: 0.4; /* Ajuste a opacidade se quiser */
+            filter: grayscale(100%) contrast(1.2); /* Preto e branco elegante */
         }
 
-        /* Overlay escuro para melhorar legibilidade */
         .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 80%);
+            inset: 0;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, #050505 95%);
             z-index: 1;
-            pointer-events: none;
         }
 
-        /* LOGO NO TOPO */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
         .hero-logo {
-            width: 150px;
-            height: auto;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.5));
-            position: relative;
-            z-index: 2;
+            width: 90px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
         }
 
-        /* Conteúdo do hero acima do vídeo */
-        .hero .container {
-            position: relative;
-            z-index: 2;
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
-        .hero h2 { font-size: 1rem; color: var(--gold-royal); letter-spacing: 8px; margin-bottom: 40px; }
+        .hero h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.5em;
+            color: var(--gold-primary);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
 
-        /* --- THE PROPOSITION --- */
-        .proposition { padding: 120px 0; text-align: center; background: var(--bg-panel); }
-        
-        .prop-content {
+        /* INTRO & FILTER */
+        .section-std { padding: var(--spacing-section) 0; }
+
+        .intro-text {
+            text-align: center;
             max-width: 750px;
-            margin: 0 auto;
-            font-size: 1.2rem;
+            margin: 0 auto 80px;
+        }
+
+        .filter-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .filter-list li {
+            list-style: none;
+            margin-bottom: 20px;
+            padding-left: 35px;
+            position: relative;
             color: #ccc;
         }
 
-        .highlight-box {
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            padding: 40px;
-            margin: 60px 0;
-            background: rgba(0,0,0,0.5);
-        }
-
-        /* --- TIMELINE (90 DAYS) --- */
-        .timeline-section { padding: 100px 0; }
-        .timeline-title { text-align: center; margin-bottom: 80px; font-size: 2.5rem; }
-
-        .phase {
-            display: flex;
-            align-items: center;
-            margin-bottom: 60px;
-            gap: 40px;
-        }
-
-        .phase-num {
-            font-family: 'Cinzel', serif;
-            font-size: 4rem;
-            color: rgba(255,255,255,0.05);
-            position: relative;
-        }
-        
-        .phase-num::after {
-            content: '';
+        .check-list li::before {
+            content: '✦';
+            color: var(--gold-primary);
             position: absolute;
-            bottom: 10px; left: 0; width: 100%; height: 2px;
-            background: var(--gold-royal);
+            left: 0;
+            top: 2px;
+            font-size: 1.2rem;
         }
 
-        .phase-content h3 { color: var(--gold-royal); margin-bottom: 10px; }
-
-        /* --- INCLUSIONS --- */
-        .inclusions {
-            background: linear-gradient(135deg, #0a0a0a 0%, #000 100%);
-            padding: 100px 0;
-            border-top: 1px solid rgba(197, 160, 89, 0.1);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+        .cross-list li::before {
+            content: '—';
+            color: #555;
+            position: absolute;
+            left: 0;
         }
 
-        .grid-features {
+        /* METHODOLOGY */
+        .methodology {
+            background: linear-gradient(to bottom, #050505, #0a0a0a, #050505);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .dual-columns {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            grid-template-columns: 1fr 1fr;
+            gap: 0; /* Colados visualmente ou com gap sutil */
         }
 
-        .feature-card {
-            padding: 30px;
-            border: 1px solid #222;
+        .method-card {
+            padding: 80px 50px;
+            border-right: 1px solid var(--border-subtle);
+            text-align: center;
             transition: 0.4s;
         }
-        .feature-card:hover { border-color: var(--gold-royal); background: rgba(197, 160, 89, 0.05); }
+        
+        .method-card:last-child { border-right: none; }
+        .method-card:hover { background: rgba(255,255,255,0.02); }
 
-        /* --- VIP OPTION --- */
-        .vip-option {
-            margin: 80px auto 0;
-            max-width: 800px;
-            background: rgba(197, 160, 89, 0.1);
-            border: 1px solid var(--gold-royal);
-            padding: 50px;
-            text-align: center;
+        .method-icon {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* --- FOOTER --- */
-        footer { text-align: center; padding: 60px 0; color: #444; font-size: 0.8rem; }
+        /* AKASHA LAB */
+        .akasha-lab {
+            position: relative;
+            padding: var(--spacing-section) 0;
+            background-image: radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 0.8) 0%, #000 100%);
+        }
 
+        .lab-highlight {
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .lab-highlight::before, .lab-highlight::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 1px solid var(--gold-primary);
+            transition: 0.3s;
+        }
+        .lab-highlight::before { top: -1px; left: -1px; border-bottom: 0; border-right: 0; }
+        .lab-highlight::after { bottom: -1px; right: -1px; border-top: 0; border-left: 0; }
+
+        /* PRICING & LEGAL */
+        .pricing-section { text-align: center; padding: 100px 0; }
+        .price-tag {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin: 20px 0 50px;
+            color: #fff;
+        }
+        .price-sub { font-size: 1rem; color: var(--gold-primary); display: block; margin-bottom: 10px; letter-spacing: 0.1em; }
+
+        .legal-footer {
+            padding: 60px 0;
+            border-top: 1px solid #111;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #444;
+        }
+        .legal-footer p { max-width: 600px; margin: 0 auto 10px; line-height: 1.6; }
+
+        /* --- 6. RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            .hero-logo { width: 100px; }
-            .phase { flex-direction: column; text-align: center; gap: 10px; }
-            .phase-num { font-size: 3rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero h2 { letter-spacing: 0.2em; }
+            .filter-container, .dual-columns { grid-template-columns: 1fr; }
+            .method-card { border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 50px 20px; }
+            .container { padding: 0 25px; }
+            .btn-gold { padding: 18px 40px; width: 100%; text-align: center; }
+            .akasha-lab .lab-highlight { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
     <!-- HERO -->
-    <section class="hero">
-        <!-- VÍDEO DE FUNDO -->
+    <header class="hero">
         <video class="hero-video" autoplay muted loop playsinline>
+            <!-- Mantive seu vídeo, mas agora ele está P&B e sutil via CSS -->
             <source src="https://res.cloudinary.com/dlueoyrhe/video/upload/v1765954196/generated_video_-_2025-12-17T034853.584_rixpox.mp4" type="video/mp4">
         </video>
 
-        <div class="container">
-            <!-- LOGO NO LUGAR DO EMOJI -->
-            <img src="https://res.cloudinary.com/dlueoyrhe/image/upload/v1765962348/Sem_nome_70_x_70_px_la5nyl.png">
-
-            <h2>Mentoria High-Ticket</h2>
-            <h1>O Império <br><span class="gold-text">Akáshico</span></h1>
+        <div class="hero-content container fade-in-up">
+            <img src="https://res.cloudinary.com/dlueoyrhe/image/upload/v1765962348/Sem_nome_70_x_70_px_la5nyl.png" alt="Akasha Logo" class="hero-logo">
             
-            <p style="max-width: 600px; margin: 20px auto 40px; opacity: 0.7;">
-                90 dias de acompanhamento estratégico e vibracional com Yan Simon.
-                Construa seu legado através do domínio da sua assinatura energética.
+            <h2>MENTORIA AKÁSHICA 1:1</h2>
+            <h1>Arquitetura de <br><span class="text-gold">Essência & Poder</span></h1>
+            
+            <p style="opacity: 0.8; max-width: 600px; margin: 30px auto 50px; font-size: 1.1rem;">
+                Não basta se alinhar internamente. É preciso ter um corpo digital coerente para governar seu espaço no mundo.
             </p>
 
-            <!-- BOTÃO TOPO ATUALIZADO -->
-            <a href="https://akashahub.github.io/formularioMENTORIA1-1/" target="_blank" class="btn-empire">
-                Aplicar para a Mentoria
+            <a href="https://akashahub.github.io/formularioMENTORIA1-1/" class="btn-gold">
+                Iniciar Aplicação
             </a>
         </div>
-    </section>
+    </header>
 
-    <!-- THE PROPOSITION -->
-    <section class="proposition">
+    <!-- INTRODUÇÃO -->
+    <section class="section-std">
         <div class="container">
-            <div class="prop-content">
-                <p class="serif-italic" style="margin-bottom: 30px;">"O sucesso exige uma frequência que poucos conseguem sustentar sozinhos."</p>
+            <div class="divider"></div>
+            
+            <div class="intro-text fade-in-up" style="animation-delay: 0.3s;">
+                <p class="serif-italic">
+                    "Sua alma já sabe quem você é.<br>Agora, a internet precisa saber."
+                </p>
+                <br>
                 <p>
-                    Você já atingiu um nível onde conselhos genéricos não funcionam mais. 
-                    Seu próximo salto não é sobre estratégia, é sobre <strong>Identidade e Energia</strong>.
+                    A <strong>Mentoria Akáshica 1:1</strong> é um processo de Alta Arquitetura Pessoal. 
+                    Desenhada para quem já caminhou na jornada do autoconhecimento, mas sente que sua "voz" e sua "imagem" ainda não refletem a potência interna.
                 </p>
-                <p style="margin-top: 20px;">
-                    Esta mentoria é o meu <strong>Círculo Interno</strong>. Durante 3 meses, eu serei o guardião da sua frequência, garantindo que sua energia esteja alinhada com a prosperidade massiva que você deseja manifestar.
-                </p>
+            </div>
 
-                <div class="highlight-box">
-                    <h3>Para quem é este lugar?</h3>
-                    <ul style="text-align: left; margin-top: 20px; list-style: none; color: #aaa;">
-                        <li style="margin-bottom: 10px;">🔱 Líderes e Empreendedores que sentem estagnação invisível.</li>
-                        <li style="margin-bottom: 10px;">🔱 Homens e Mulheres que querem dominar a arte da Fascinação.</li>
-                        <li style="margin-bottom: 10px;">🔱 Quem está pronto para investir de <strong>R$ 3k a R$ 10k</strong> em si mesmo.</li>
+            <div class="glass-card filter-container">
+                <div class="check-list">
+                    <h3 style="color: var(--gold-primary); font-size: 1rem; margin-bottom: 25px;">Para quem é este Círculo:</h3>
+                    <ul class="filter-list">
+                        <li>Possui profundidade, mas trava na exposição.</li>
+                        <li>Busca coerência entre o ser e o parecer.</li>
+                        <li>Deseja soberania digital (site próprio e estrutura).</li>
+                        <li>Valoriza o tempo orgânico das coisas.</li>
+                    </ul>
+                </div>
+                <div class="cross-list">
+                    <h3 style="color: #666; font-size: 1rem; margin-bottom: 25px;">Não é para quem busca:</h3>
+                    <ul class="filter-list">
+                        <li>Fórmulas mágicas de enriquecimento.</li>
+                        <li>Atalhos que ferem a integridade.</li>
+                        <li>Terceirização da própria responsabilidade.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- THE STRUCTURE (90 DAYS) -->
-    <section class="timeline-section">
+    <!-- METODOLOGIA DUAL -->
+    <section class="methodology">
+        <div class="container" style="text-align: center; padding-top: 100px; padding-bottom: 60px;">
+            <h2 class="text-gold">A Metodologia Dual</h2>
+            <p style="color: #666; font-size: 0.9rem; letter-spacing: 0.1em; margin-top: 10px;">INTEGRAÇÃO TOTAL</p>
+        </div>
+        
         <div class="container">
-            <h2 class="timeline-title">A Jornada de <span class="gold-text">90 Dias</span></h2>
-
-            <div class="phase">
-                <div class="phase-num">Mês 1</div>
-                <div class="phase-content">
-                    <h3>Limpeza & Fundação</h3>
-                    <p>Rituais profundos de quebra de contratos antigos. Alinhamento dos 7 Chakras e identificação da sua Assinatura Energética Única.</p>
+            <div class="dual-columns">
+                <div class="method-card">
+                    <div class="method-icon">✦</div>
+                    <h3>A Bússola Interna</h3>
+                    <p style="margin-top: 20px; color: #aaa;">
+                        Mapeamento de bloqueios criativos e emocionais. Leitura de padrões ocultos. 
+                        Definição da sua <strong>Assinatura Energética</strong>: como você deve vibrar para atrair sem esforço.
+                    </p>
                 </div>
-            </div>
-
-            <div class="phase">
-                <div class="phase-num">Mês 2</div>
-                <div class="phase-content">
-                    <h3>Magnetismo & Poder</h3>
-                    <p>Instalação de códigos de Fascinação. Você aprenderá a dominar salas, negociações e relacionamentos usando apenas sua presença.</p>
-                </div>
-            </div>
-
-            <div class="phase">
-                <div class="phase-num">Mês 3</div>
-                <div class="phase-content">
-                    <h3>Consolidação do Império</h3>
-                    <p>Constelação vibracional da prosperidade. Preparação para voar sozinho na nova frequência. Ritual de encerramento.</p>
+                <div class="method-card">
+                    <div class="method-icon">❖</div>
+                    <h3>O Corpo Digital</h3>
+                    <p style="margin-top: 20px; color: #aaa;">
+                        Tradução da essência em estrutura. Identidade visual, narrativa e tecnologia.
+                        Transformamos o abstrato em <strong>presença real e navegável</strong>.
+                    </p>
                 </div>
             </div>
         </div>
+        <div style="height: 100px;"></div> <!-- Espaço negativo intencional -->
     </section>
 
-    <!-- INCLUSIONS -->
-    <section class="inclusions">
+    <!-- AKASHA LAB -->
+    <section class="akasha-lab">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 20px;">Arquitetura do Programa</h2>
-            <p style="text-align: center; color: #666;">O que está incluso no seu investimento.</p>
-
-            <div class="grid-features">
-                <div class="feature-card">
-                    <div style="font-size: 2rem; margin-bottom: 15px;">📹</div>
-                    <h4>Sessões Semanais</h4>
-                    <p style="font-size: 0.9rem; color: #888;">Encontros 1:1 online para alinhamento, diagnóstico e estratégia em tempo real.</p>
-                </div>
-                <div class="feature-card">
-                    <div style="font-size: 2rem; margin-bottom: 15px;">🎧</div>
-                    <h4>Biblioteca Akáshica</h4>
-                    <p style="font-size: 0.9rem; color: #888;">Acesso total e vitalício a todos os áudios, reprogramações e cursos digitais da marca.</p>
-                </div>
-                <div class="feature-card">
-                    <div style="font-size: 2rem; margin-bottom: 15px;">📜</div>
-                    <h4>Reprogramação Personalizada</h4>
-                    <p style="font-size: 0.9rem; color: #888;">Áudios gravados exclusivamente para o seu subconsciente, com seu nome e suas metas.</p>
-                </div>
-                <div class="feature-card">
-                    <div style="font-size: 2rem; margin-bottom: 15px;">📞</div>
-                    <h4>Acesso Direto</h4>
-                    <p style="font-size: 0.9rem; color: #888;">Contato direto via WhatsApp com Yan Simon durante os 90 dias para ajustes rápidos.</p>
-                </div>
-            </div>
-
-            <!-- VIP UPGRADE -->
-            <div class="vip-option">
-                <h3 style="color: var(--gold-royal); margin-bottom: 15px;">✨ Upgrade Presencial (VIP)</h3>
-                <p style="color: #ddd; margin-bottom: 20px;">
-                    Para alunos selecionados, a mentoria pode incluir uma <strong>Sessão Presencial de Encerramento</strong> (Imersão de 4h).
+            <div class="lab-highlight glass-card">
+                <p style="font-size: 0.8rem; letter-spacing: 0.3em; color: var(--gold-primary); margin-bottom: 20px;">DIFERENCIAL EXCLUSIVO</p>
+                <h2 style="font-size: 2.5rem; margin-bottom: 30px;">Akasha Hub <span class="text-gold">Digital Lab</span></h2>
+                
+                <p style="max-width: 700px; margin: 0 auto 40px; color: #ccc;">
+                    Diferente de mentorias que entregam apenas teoria, aqui nós materializamos. 
+                    Você terá acesso à nossa incubadora tecnológica para colocar sua <strong>estrutura digital no ar</strong> durante o processo.
                 </p>
-                <p style="font-size: 0.9rem; opacity: 0.7;">*Disponibilidade e valores sob consulta na aplicação.</p>
-            </div>
 
-            <!-- BOTÃO FINAL ATUALIZADO -->
-            <div style="text-align: center; margin-top: 80px;">
-                <a href="https://akashahub.github.io/formularioMENTORIA1-1/" target="_blank" class="btn-empire">
-                    Aplicar para uma Vaga
+                <ul style="text-align: center; margin-bottom: 50px; color: #888; font-size: 0.9rem;">
+                    <li style="display: inline-block; margin: 0 15px;">✓ Site Estruturado</li>
+                    <li style="display: inline-block; margin: 0 15px;">✓ Sem Custo Extra</li>
+                    <li style="display: inline-block; margin: 0 15px;">✓ Laboratório Seguro</li>
+                </ul>
+
+                <a href="https://akashahub.github.io/formularioMENTORIA1-1/" class="btn-gold">
+                    Garantir Vaga no Lab
                 </a>
-                <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">Processo seletivo necessário.</p>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        YAN SIMON EXPERIENCE &copy; 2024
+    <!-- FORMATO & PREÇO -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="divider"></div>
+            <h2 style="font-size: 1.5rem; margin-bottom: 40px; color: #666;">Formato da Jornada</h2>
+
+            <div style="display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-bottom: 60px;">
+                <div>
+                    <span style="font-family: 'Cinzel'; font-size: 2rem; color: var(--gold-primary);">1:1</span>
+                    <p style="font-size: 0.8rem; text-transform: uppercase; margin-top: 10px;">Sessões Online</p>
+                </div>
+                <div>
+                    <span style="font-family: 'Cinzel'; font-size: 2rem; color: var(--gold-primary);">∞</span>
+                    <p style="font-size: 0.8rem; text-transform: uppercase; margin-top: 10px;">Acesso Vitalício</p>
+                </div>
+                <div>
+                    <span style="font-family: 'Cinzel'; font-size: 2rem; color: var(--gold-primary);">VIP</span>
+                    <p style="font-size: 0.8rem; text-transform: uppercase; margin-top: 10px;">Suporte Direto</p>
+                </div>
+            </div>
+
+            <div class="price-box">
+                <span class="price-sub">INVESTIMENTO INICIAL</span>
+                <h3 class="price-tag">
+                    <span style="font-size: 1.5rem; vertical-align: middle;">R$</span> 
+                    2.500
+                </h3>
+            </div>
+
+            <a href="https://akashahub.github.io/formularioMENTORIA1-1/" class="btn-gold">
+                Aplicar Agora
+            </a>
+            <p style="margin-top: 20px; font-size: 0.75rem; opacity: 0.5;">Processo seletivo necessário. Vagas limitadas.</p>
+        </div>
+    </section>
+
+    <!-- RODAPÉ LEGAL (DISCRETO) -->
+    <footer class="legal-footer">
+        <div class="container">
+            <p><strong>ACORDO DE INTEGRIDADE</strong></p>
+            <p>Este programa foca em desenvolvimento pessoal e arquitetura estratégica. Não substitui acompanhamento clínico médico ou psicológico.</p>
+            <p>O sucesso comercial depende da execução contínua do participante. A Akasha Hub fornece a estrutura tecnológica, mas a propriedade intelectual e manutenção futura são do mentorado.</p>
+            <br>
+            <p style="opacity: 0.3;">YAN SIMON EXPERIENCE &copy; 2024</p>
+        </div>
     </footer>
 
 </body>
 </html>
-
